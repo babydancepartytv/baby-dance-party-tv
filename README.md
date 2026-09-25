@@ -1,3 +1,13 @@
+---
+title: Baby Dance Party TV
+emoji: 🍼
+colorFrom: purple
+colorTo: pink
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # Baby Dance Party TV — Website
 
 Professional video content platform with YouTube integration and Adsterra monetization.
