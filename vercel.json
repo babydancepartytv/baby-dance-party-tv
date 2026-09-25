@@ -1,0 +1,1 @@
+{"crons":[{"path":"/api/cron-sync","schedule":"*/30 * * * *"}],"rewrites":[{"destination":"/api/index","source":"/(.*)"}],"version":2}
