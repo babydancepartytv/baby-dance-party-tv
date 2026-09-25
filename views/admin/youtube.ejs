@@ -1,0 +1,41 @@
+<%- include('_top') %>
+
+<% if (msg === 'saved') { %><div class="msg-ok">✓ Saved.</div><% } %>
+<% if (msg === 'synced') { %><div class="msg-ok">✓ Synced videos from YouTube.</div><% } %>
+<% if (msg === 'sync-error') { %><div class="form-err">Sync failed. Check the API key and channel ID below.</div><% } %>
+
+<div class="admin-panel">
+<form class="admin-form" action="/admin/youtube" method="post">
+  <label>Channel handle
+    <input type="text" name="handle" value="<%= handle %>" maxlength="80">
+    <span class="hint">e.g. @BabyDancePartyTV-k9p</span>
+  </label>
+  <label>Channel ID
+    <input type="text" name="channel_id" value="<%= channelId %>" maxlength="80">
+    <span class="hint">Found in YouTube Studio → Settings → Channel, or leave empty and the API will resolve it from the handle.</span>
+  </label>
+  <label>Channel URL
+    <input type="text" name="channel_url" value="<%= channelUrl %>" maxlength="200">
+  </label>
+  <label>YouTube Data API v3 key (stored server-side only, never shown to visitors)
+    <input type="password" name="api_key" placeholder="<%= apiKey || 'Paste API key here' %>" maxlength="120" autocomplete="off">
+    <span class="hint">Leave blank to keep the existing key. Without a key, the site falls back to the public RSS feed (latest ~15 videos, no view counts).</span>
+  </label>
+  <label>Auto-sync interval (minutes)
+    <input type="number" name="interval" value="<%= interval %>" min="10" max="1440">
+  </label>
+  <div style="display:flex;gap:10px;margin-top:6px">
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-ghost" type="submit" name="dosync" value="1">Save &amp; Sync Now</button>
+  </div>
+</form>
+</div>
+
+<div class="admin-panel">
+  <h2>Status</h2>
+  <p>Last sync: <strong><%= lastSync || 'never' %></strong></p>
+  <p>Status: <%= lastSyncStatus || '—' %></p>
+  <p class="hint">How to get a free API key: Google Cloud Console → create a project → enable "YouTube Data API v3" → create an API key (restrict it to YouTube Data API v3).</p>
+</div>
+
+<%- include('_bottom') %>

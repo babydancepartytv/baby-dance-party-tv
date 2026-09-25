@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= title %> — Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+<script>try{var t=localStorage.getItem('bdp-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body class="admin">
+<aside class="admin-side">
+  <a href="/admin" class="brand"><span class="brand-logo">🍼</span><span class="brand-text">Admin</span></a>
+  <nav>
+    <a href="/admin">📊 Dashboard</a>
+    <a href="/admin/videos">🎬 Videos</a>
+    <a href="/admin/categories">📁 Categories</a>
+    <a href="/admin/pages">📄 Pages</a>
+    <a href="/admin/ads">💰 Ads</a>
+    <a href="/admin/youtube">▶ YouTube</a>
+    <a href="/admin/stats">📈 Statistics</a>
+    <a href="/admin/messages">✉ Messages</a>
+    <a href="/admin/settings">⚙ Settings</a>
+  </nav>
+  <div class="admin-side-foot">
+    <a href="/" target="_blank">🌐 View Site</a>
+    <a href="/admin/logout">🚪 Logout</a>
+  </div>
+</aside>
+<main class="admin-main">
+  <h1 class="admin-title"><%= title %></h1>

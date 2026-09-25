@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= title %></title>
+<meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>">
+<% if (typeof canonical !== 'undefined' && canonical) { %><link rel="canonical" href="<%= canonical %>"><% } %>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="<%= settings.site_title %>">
+<meta property="og:title" content="<%= title %>">
+<meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>">
+<% if (typeof canonical !== 'undefined' && canonical) { %><meta property="og:url" content="<%= canonical %>"><% } %>
+<% if (typeof ogImage !== 'undefined' && ogImage) { %><meta property="og:image" content="<%= ogImage %>"><% } %>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<% if (typeof publishedAt !== 'undefined' && publishedAt && typeof video !== 'undefined') { %>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":<%= JSON.stringify(video.title) %>,"description":<%= JSON.stringify((video.description||'').slice(0,300)) %>,"thumbnailUrl":<%= JSON.stringify(video.thumbnail) %>,"uploadDate":<%= JSON.stringify(video.published_at) %>,"embedUrl":"https://www.youtube.com/embed/<%= video.video_id %>"}
+</script>
+<% } %>
+<% if (settings.ga_measurement_id) { %>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= settings.ga_measurement_id %>"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','<%= settings.ga_measurement_id %>');</script>
+<% } %>
+<script>try{var t=localStorage.getItem('bdp-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>

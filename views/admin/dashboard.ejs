@@ -1,0 +1,42 @@
+<%- include('_top') %>
+
+<% if (pwChanged !== '1') { %>
+<div class="warn-banner">⚠ You are using the default admin password. <a href="/admin/settings">Change it now</a> in Settings.</div>
+<% } %>
+
+<div class="admin-cards">
+  <div class="stat-card"><div class="num"><%= stats.videos %></div><div class="lbl">Videos</div></div>
+  <div class="stat-card"><div class="num"><%= stats.views24h %></div><div class="lbl">Views (24h)</div></div>
+  <div class="stat-card"><div class="num"><%= stats.views7d %></div><div class="lbl">Views (7 days)</div></div>
+  <div class="stat-card"><div class="num"><%= stats.viewsTotal %></div><div class="lbl">Total views</div></div>
+  <div class="stat-card"><div class="num"><%= stats.messages %></div><div class="lbl">Unread messages</div></div>
+</div>
+
+<div class="admin-panel">
+  <h2>YouTube Sync</h2>
+  <p>Last sync: <strong><%= lastSync || 'never' %></strong></p>
+  <p>Status: <%= lastSyncStatus || '—' %></p>
+  <form action="/admin/videos/sync" method="post" style="margin-top:10px">
+    <button class="btn btn-primary btn-small" type="submit">🔄 Sync Now</button>
+  </form>
+</div>
+
+<div class="admin-panel">
+  <h2>Click Tracking</h2>
+  <% if (stats.clicks.length === 0) { %><p>No clicks tracked yet.</p><% } %>
+  <% stats.clicks.forEach(function(c){ %>
+    <p><span class="badge"><%= c.kind %></span> — <%= c.c %> clicks</p>
+  <% }); %>
+</div>
+
+<div class="admin-panel">
+  <h2>Popular Pages (7 days)</h2>
+  <% if (popularPages.length === 0) { %><p>No data yet.</p><% } %>
+  <table class="admin-table">
+    <% popularPages.forEach(function(p){ %>
+    <tr><td><a href="<%= p.path %>" target="_blank"><%= p.path %></a></td><td><%= p.c %> views</td></tr>
+    <% }); %>
+  </table>
+</div>
+
+<%- include('_bottom') %>

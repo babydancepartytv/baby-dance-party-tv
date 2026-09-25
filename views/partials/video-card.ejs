@@ -1,0 +1,15 @@
+<article class="video-card">
+  <a href="<%= videoUrl(v) %>" class="video-thumb">
+    <img src="<%= v.thumbnail %>" alt="<%= v.title %>" loading="lazy" width="480" height="270">
+    <% if (v.duration) { %><span class="video-duration"><%= v.duration %></span><% } %>
+    <% if (v.featured) { %><span class="video-badge">★ Featured</span><% } %>
+  </a>
+  <div class="video-info">
+    <h3 class="video-title"><a href="<%= videoUrl(v) %>"><%= v.title %></a></h3>
+    <div class="video-meta">
+      <span><%= helpers.timeAgo(v.published_at) %></span>
+      <% if (v.view_count) { %><span>·</span><span><%= helpers.formatViews(v.view_count) %> views</span><% } %>
+      <% if (v.category_name) { %><span>·</span><a class="video-cat" href="/category/<%= v.category_slug %>"><%= v.category_name %></a><% } %>
+    </div>
+  </div>
+</article>

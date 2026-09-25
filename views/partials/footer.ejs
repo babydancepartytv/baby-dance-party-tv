@@ -1,0 +1,40 @@
+<% if (ads.mobile) { %><%- include('ad', {slot:'mobile', code: ads.mobile}) %><% } %>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <div class="brand"><span class="brand-logo">🍼</span><span class="brand-text"><%= settings.site_title %></span></div>
+      <p class="footer-tagline"><%= settings.site_tagline %></p>
+      <a class="btn btn-subscribe" href="<%= settings.youtube_channel_url %>" target="_blank" rel="noopener" data-track="youtube" data-label="footer-subscribe">▶ Subscribe on YouTube</a>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="/">Home</a>
+      <a href="/videos">All Videos</a>
+      <a href="/categories">Categories</a>
+      <a href="/search">Search</a>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <% categories.slice(0,6).forEach(function(c){ %>
+        <a href="/category/<%= c.slug %>"><%= c.name %></a>
+      <% }); %>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/page/about">About Us</a>
+      <a href="/page/contact">Contact Us</a>
+      <a href="/page/privacy">Privacy Policy</a>
+      <a href="/page/terms">Terms &amp; Conditions</a>
+      <a href="/page/disclaimer">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© <%= new Date().getFullYear() %> <%= settings.site_title %>. All rights reserved.</span>
+      <span class="footer-note">Videos embedded from YouTube.</span>
+    </div>
+  </div>
+</footer>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

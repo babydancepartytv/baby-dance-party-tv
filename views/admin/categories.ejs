@@ -1,0 +1,34 @@
+<%- include('_top') %>
+
+<% if (msg) { %><div class="msg-ok">✓ Done.</div><% } %>
+
+<div class="admin-panel">
+  <h2>Add Category</h2>
+  <form class="admin-form" action="/admin/categories/add" method="post" style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+    <label style="flex:1;min-width:200px">Name<input type="text" name="name" required maxlength="80"></label>
+    <label style="flex:2;min-width:200px">Description<input type="text" name="description" maxlength="300"></label>
+    <button class="btn btn-primary btn-small" type="submit">Add</button>
+  </form>
+</div>
+
+<div class="admin-panel">
+  <h2>All Categories</h2>
+  <table class="admin-table">
+    <tr><th>Name</th><th>Slug</th><th>Videos</th><th></th></tr>
+    <% cats.forEach(function(c){ %>
+    <tr>
+      <td><strong><%= c.name %></strong><br><span style="color:var(--text-dim);font-size:.85rem"><%= c.description %></span></td>
+      <td><code><%= c.slug %></code></td>
+      <td><%= c.video_count %></td>
+      <td>
+        <form class="inline-form" action="/admin/categories/delete" method="post" onsubmit="return confirm('Delete this category?')">
+          <input type="hidden" name="id" value="<%= c.id %>">
+          <button class="btn btn-danger btn-small" type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% }); %>
+  </table>
+</div>
+
+<%- include('_bottom') %>

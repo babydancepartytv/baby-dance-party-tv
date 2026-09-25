@@ -1,0 +1,21 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="container">
+  <div class="page-head"><h1>Search Videos</h1></div>
+  <form class="search-big" action="/search" method="get" role="search">
+    <input type="search" name="q" placeholder="Search by title, category or keyword…" value="<%= q %>" aria-label="Search videos">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+  <% if (q) { %>
+    <p class="search-count"><%= videos.length %> result<%= videos.length === 1 ? '' : 's' %> for "<strong><%= q %></strong>"</p>
+    <div class="video-grid">
+      <% videos.forEach(function(v){ %>
+        <%- include('partials/video-card', {v: v}) %>
+      <% }); %>
+    </div>
+    <% if (videos.length === 0) { %><p class="empty-note">No videos found. Try another keyword! 🔍</p><% } %>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>

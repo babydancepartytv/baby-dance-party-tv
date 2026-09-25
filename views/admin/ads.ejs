@@ -1,0 +1,31 @@
+<%- include('_top') %>
+
+<% if (msg) { %><div class="msg-ok">✓ Saved.</div><% } %>
+
+<p style="margin-bottom:18px;color:var(--text-dim)">Paste your Adsterra ad codes below. Each placement is clearly labeled as "Advertisement" on the site and only renders when enabled with code present.</p>
+
+<form class="admin-form" action="/admin/ads" method="post">
+<div class="admin-panel">
+  <h2>Adsterra Smartlink</h2>
+  <label>Smartlink URL (used for promo buttons &amp; native placements)
+    <input type="text" name="smartlink" value="<%= smartlink %>" maxlength="500">
+    <span class="hint">Example: https://www.profitableratecpmnetwork.com/...</span>
+  </label>
+</div>
+
+<% ads.forEach(function(a){ %>
+<div class="admin-panel">
+  <h2><%= a.label %> <span class="badge <%= a.enabled ? 'on' : '' %>"><%= a.enabled ? 'enabled' : 'disabled' %></span></h2>
+  <label>
+    <input type="checkbox" name="enabled[<%= a.slot %>]" value="1" <%= a.enabled ? 'checked' : '' %> style="width:auto"> Enable this placement
+  </label>
+  <label>Ad code (HTML / JavaScript from Adsterra)
+    <textarea class="code" name="code[<%= a.slot %>]" rows="5"><%= a.code %></textarea>
+  </label>
+</div>
+<% }); %>
+
+<button class="btn btn-primary" type="submit">Save All Ads</button>
+</form>
+
+<%- include('_bottom') %>

@@ -1,0 +1,24 @@
+<%- include('_top') %>
+
+<% if (msg) { %><div class="msg-ok">✓ Saved.</div><% } %>
+
+<div class="admin-panel">
+<form class="admin-form" action="/admin/settings" method="post">
+  <label>Site title<input type="text" name="site_title" value="<%= vals.site_title %>" maxlength="120"></label>
+  <label>Tagline<input type="text" name="site_tagline" value="<%= vals.site_tagline %>" maxlength="200"></label>
+  <label>Meta description (SEO)<textarea name="site_description" rows="3" maxlength="300"><%= vals.site_description %></textarea></label>
+  <label>Google Analytics Measurement ID<input type="text" name="ga_measurement_id" value="<%= vals.ga_measurement_id %>" maxlength="30" placeholder="G-XXXXXXXXXX"><span class="hint">Leave empty to disable.</span></label>
+  <label>Videos per page<input type="number" name="videos_per_page" value="<%= vals.videos_per_page %>" min="4" max="48"></label>
+  <button class="btn btn-primary" type="submit">Save Settings</button>
+</form>
+</div>
+
+<div class="admin-panel">
+  <h2>Change Admin Password</h2>
+  <form class="admin-form" action="/admin/settings" method="post">
+    <label>New password (min 6 characters)<input type="password" name="new_password" minlength="6" autocomplete="new-password"></label>
+    <button class="btn btn-ghost" type="submit">Change Password</button>
+  </form>
+</div>
+
+<%- include('_bottom') %>

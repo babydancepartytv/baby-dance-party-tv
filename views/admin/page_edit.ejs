@@ -1,0 +1,13 @@
+<%- include('_top') %>
+
+<div class="admin-panel">
+<form class="admin-form" action="/admin/pages/<%= page.id %>" method="post">
+  <label>Title<input type="text" name="title" value="<%= page.title %>" required maxlength="120"></label>
+  <label>Content (HTML allowed)<textarea name="content" rows="14"><%= page.content %></textarea></label>
+  <label><input type="checkbox" name="show_in_nav" value="1" <%= page.show_in_nav ? 'checked' : '' %> style="width:auto"> Show in navigation menu</label>
+  <button class="btn btn-primary" type="submit">Save Page</button>
+  <a class="btn btn-ghost" href="/admin/pages">Cancel</a>
+</form>
+</div>
+
+<%- include('_bottom') %>

@@ -1,0 +1,19 @@
+<%- include('_top') %>
+
+<% if (msg) { %><div class="msg-ok">✓ Saved.</div><% } %>
+
+<div class="admin-panel">
+<table class="admin-table">
+  <tr><th>Title</th><th>URL</th><th>In nav</th><th></th></tr>
+  <% pages.forEach(function(p){ %>
+  <tr>
+    <td><strong><%= p.title %></strong></td>
+    <td><a href="/page/<%= p.slug %>" target="_blank">/page/<%= p.slug %></a></td>
+    <td><%= p.show_in_nav ? '<span class="badge on">yes</span>' : '<span class="badge">no</span>' %></td>
+    <td><a class="btn btn-ghost btn-small" href="/admin/pages/<%= p.id %>">Edit</a></td>
+  </tr>
+  <% }); %>
+</table>
+</div>
+
+<%- include('_bottom') %>

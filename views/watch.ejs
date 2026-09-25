@@ -1,0 +1,74 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="container watch-layout">
+  <div class="watch-main">
+    <div class="player-wrap">
+      <iframe src="https://www.youtube.com/embed/<%= video.video_id %>?rel=0"
+        title="<%= video.title %>" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+
+    <h1 class="watch-title"><%= video.title %></h1>
+    <div class="watch-meta">
+      <span><%= helpers.formatDate(video.published_at) %></span>
+      <% if (video.view_count) { %><span>·</span><span><%= helpers.formatViews(video.view_count) %> views</span><% } %>
+      <% if (video.category_name) { %><span>·</span><a href="/category/<%= video.category_slug %>"><%= video.category_name %></a><% } %>
+      <% if (video.duration) { %><span>·</span><span>⏱ <%= video.duration %></span><% } %>
+    </div>
+
+    <div class="watch-actions">
+      <a class="btn btn-subscribe" href="<%= settings.youtube_channel_url %>" target="_blank" rel="noopener" data-track="youtube" data-label="watch-subscribe">▶ Subscribe</a>
+      <button class="btn btn-ghost" id="shareBtn" type="button">🔗 Share</button>
+      <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=<%= video.video_id %>" target="_blank" rel="noopener" data-track="youtube" data-label="watch-youtube">▶ Watch on YouTube</a>
+    </div>
+
+    <% if (ads.incontent) { %><%- include('partials/ad', {slot:'incontent', code: ads.incontent}) %><% } %>
+
+    <% if (video.description) { %>
+    <div class="watch-desc">
+      <h2>Description</h2>
+      <p><%= helpers.truncate(video.description, 600) %></p>
+    </div>
+    <% } %>
+
+    <div class="channel-box">
+      <div class="channel-avatar">🍼</div>
+      <div>
+        <strong><%= settings.site_title %></strong>
+        <p><%= settings.site_tagline %></p>
+      </div>
+      <a class="btn btn-subscribe" href="<%= settings.youtube_channel_url %>" target="_blank" rel="noopener" data-track="youtube" data-label="watch-channel-box">Subscribe</a>
+    </div>
+  </div>
+
+  <aside class="watch-sidebar">
+    <% if (ads.sidebar) { %><%- include('partials/ad', {slot:'sidebar', code: ads.sidebar}) %><% } %>
+    <h2>Related Videos</h2>
+    <div class="related-list">
+      <% related.forEach(function(v){ %>
+      <a class="related-card" href="<%= videoUrl(v) %>">
+        <img src="<%= v.thumbnail %>" alt="<%= v.title %>" loading="lazy" width="240" height="135">
+        <div>
+          <strong><%= helpers.truncate(v.title, 60) %></strong>
+          <span><%= helpers.timeAgo(v.published_at) %></span>
+        </div>
+      </a>
+      <% }); %>
+    </div>
+    <% if (settings.adsterra_smartlink) { %>
+    <a class="btn btn-primary btn-block smartlink-btn" href="<%= settings.adsterra_smartlink %>" target="_blank" rel="noopener sponsored" data-track="smartlink" data-label="watch-sidebar">🎁 Special Offer — Click Here!</a>
+    <% } %>
+  </aside>
+</main>
+
+<script>
+document.getElementById('shareBtn').addEventListener('click', async function(){
+  var url = window.location.href;
+  if (navigator.share) { try { await navigator.share({title: document.title, url: url}); } catch(e){} }
+  else { try { await navigator.clipboard.writeText(url); this.textContent = '✓ Copied!'; } catch(e){} }
+});
+</script>
+
+<%- include('partials/footer') %>

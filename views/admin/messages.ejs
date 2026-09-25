@@ -1,0 +1,26 @@
+<%- include('_top') %>
+
+<div class="admin-panel">
+<table class="admin-table">
+  <tr><th>Date</th><th>Name</th><th>Email</th><th>Message</th><th></th></tr>
+  <% messages.forEach(function(m){ %>
+  <tr style="<%= m.is_read ? '' : 'background:rgba(255,93,143,.06)' %>">
+    <td><%= (m.created_at||'').slice(0,16).replace('T',' ') %></td>
+    <td><strong><%= m.name %></strong></td>
+    <td><a href="mailto:<%= m.email %>"><%= m.email %></a></td>
+    <td style="max-width:320px"><%= m.message %></td>
+    <td>
+      <% if (!m.is_read) { %>
+      <form class="inline-form" action="/admin/messages/read" method="post">
+        <input type="hidden" name="id" value="<%= m.id %>">
+        <button class="btn btn-ghost btn-small" type="submit">Mark read</button>
+      </form>
+      <% } %>
+    </td>
+  </tr>
+  <% }); %>
+</table>
+<% if (messages.length === 0) { %><p>No messages yet.</p><% } %>
+</div>
+
+<%- include('_bottom') %>

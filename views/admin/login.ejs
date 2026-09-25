@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-login">
+  <form class="login-card" action="/admin/login" method="post">
+    <div class="login-logo">🍼</div>
+    <h1>Admin Login</h1>
+    <% if (error) { %><p class="form-err">Wrong password. Try again.</p><% } %>
+    <label>Password<input type="password" name="password" required autofocus autocomplete="current-password"></label>
+    <button class="btn btn-primary btn-block" type="submit">Login</button>
+  </form>
+</body>
+</html>

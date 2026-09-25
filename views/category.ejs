@@ -1,0 +1,27 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="container">
+  <div class="page-head">
+    <h1><%= category.name %></h1>
+    <% if (category.description) { %><p><%= category.description %></p><% } %>
+  </div>
+  <% if (videos.length === 0) { %>
+    <p class="empty-note">No videos in this category yet. 🎬</p>
+  <% } %>
+  <div class="video-grid">
+    <% videos.forEach(function(v, i){ %>
+      <%- include('partials/video-card', {v: v}) %>
+      <% if (i === 5 && ads.native) { %><%- include('partials/ad', {slot:'native', code: ads.native}) %><% } %>
+    <% }); %>
+  </div>
+  <% if (totalPages > 1) { %>
+  <nav class="pagination" aria-label="Pages">
+    <% if (page > 1) { %><a href="/category/<%= category.slug %>?page=<%= page-1 %>">← Prev</a><% } %>
+    <span>Page <%= page %> of <%= totalPages %></span>
+    <% if (page < totalPages) { %><a href="/category/<%= category.slug %>?page=<%= page+1 %>">Next →</a><% } %>
+  </nav>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>

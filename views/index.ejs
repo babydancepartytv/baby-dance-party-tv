@@ -1,0 +1,70 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>🍼 <%= settings.site_title %></h1>
+        <p class="hero-tagline"><%= settings.site_tagline %></p>
+        <p class="hero-desc"><%= settings.site_description %></p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="/videos">Watch Videos</a>
+          <a class="btn btn-subscribe" href="<%= settings.youtube_channel_url %>" target="_blank" rel="noopener" data-track="youtube" data-label="hero-subscribe">▶ Subscribe</a>
+        </div>
+      </div>
+      <% if (featured.length > 0) { %>
+      <a class="hero-featured" href="<%= videoUrl(featured[0]) %>">
+        <img src="<%= featured[0].thumbnail %>" alt="<%= featured[0].title %>" loading="eager" width="640" height="360">
+        <span class="hero-featured-label">★ Featured</span>
+        <span class="hero-featured-title"><%= featured[0].title %></span>
+      </a>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- CATEGORY PILLS -->
+  <section class="container section">
+    <div class="cat-pills">
+      <% categories.forEach(function(c){ %>
+        <a class="pill" href="/category/<%= c.slug %>"><%= c.name %></a>
+      <% }); %>
+    </div>
+  </section>
+
+  <!-- LATEST -->
+  <section class="container section">
+    <div class="section-head">
+      <h2>Latest Videos</h2>
+      <a class="see-all" href="/videos">See all →</a>
+    </div>
+    <% if (latest.length === 0) { %>
+      <p class="empty-note">Videos are on the way! New uploads will appear here automatically. 🎬</p>
+    <% } %>
+    <div class="video-grid">
+      <% latest.forEach(function(v, i){ %>
+        <%- include('partials/video-card', {v: v}) %>
+        <% if (i === 3 && ads.native) { %><%- include('partials/ad', {slot:'native', code: ads.native}) %><% } %>
+      <% }); %>
+    </div>
+  </section>
+
+  <% if (ads.incontent) { %>
+  <section class="container"><%- include('partials/ad', {slot:'incontent', code: ads.incontent}) %></section>
+  <% } %>
+
+  <!-- POPULAR -->
+  <% if (popular.length > 0) { %>
+  <section class="container section">
+    <div class="section-head"><h2>Popular Videos</h2></div>
+    <div class="video-grid">
+      <% popular.forEach(function(v){ %>
+        <%- include('partials/video-card', {v: v}) %>
+      <% }); %>
+    </div>
+  </section>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>
